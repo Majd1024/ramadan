@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramadan Moon Animation</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0d1b2a, #000814);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.scene {
+  position: relative;
+  width: 1200px;
+  height: 700px;
+  transform: scale(2);
+  animation: zoomOut 6s ease forwards;
+}
+
+@keyframes zoomOut {
+  0% { transform: scale(2); }
+  100% { transform: scale(1); }
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  background: #f4c430;
+  border-radius: 50%;
+  box-shadow: 0 0 40px #f4c430;
+  transform: translateX(-50%);
+  animation: dropMoon 4s ease forwards;
+}
+
+.moon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 150px;
+  height: 150px;
+  background: #0d1b2a;
+  border-radius: 50%;
+}
+
+@keyframes dropMoon {
+  0% { top: -200px; }
+  100% { top: 100px; }
+}
+
+/* Mosque silhouette */
+.mosque {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  background: #000;
+  clip-path: polygon(
+    0% 100%, 0% 70%, 10% 70%, 15% 60%, 20% 70%, 30% 70%,
+    35% 50%, 40% 70%, 50% 70%, 55% 60%, 60% 70%,
+    70% 70%, 75% 50%, 80% 70%, 90% 70%, 100% 70%, 100% 100%
+  );
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.title {
+  position: absolute;
+  bottom: 320px;
+  width: 100%;
+  text-align: center;
+  font-size: 48px;
+  color: #f4c430;
+  opacity: 0;
+  animation: fadeIn 3s ease forwards 4s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="moon"></div>
+  <div class="mosque"></div>
+  <div class="title">Ramadan Mubarak 🌙</div>
+</div>
+
+<script>
+// Generate random stars
+const scene = document.querySelector('.scene');
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.top = Math.random() * 600 + 'px';
+  star.style.left = Math.random() * 1200 + 'px';
+  star.style.animationDuration = (1 + Math.random() * 3) + 's';
+  scene.appendChild(star);
+}
+</script>
+
+</body>
+</html>
